@@ -12,7 +12,7 @@ function test(): void
 {
     $record = DB::table('user')->pluck('email', 'id');
     assertType('Illuminate\Support\Collection<(int|string), mixed>', $record);
-    assertType('Illuminate\Support\LazyCollection<int, mixed>', DB::table('user')->cursor());
+    assertType('Illuminate\Support\LazyCollection<int, stdClass>', DB::table('user')->cursor());
 
     $subQuery = DB::table('addresses')
         ->select(['id', 'user_id']);
