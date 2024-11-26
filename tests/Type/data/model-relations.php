@@ -126,14 +126,14 @@ function test(
     assertType('Illuminate\Database\Eloquent\Collection<int, App\Address>', $user->address()->get());
     assertType('App\Address', $user->address()->make());
     assertType('App\Address', $user->address()->create());
-    assertType('Illuminate\Database\Eloquent\Relations\HasOne<App\Address, App\ChildUser>', $child->oneAdress());
-    assertType('App\Address', $child->oneAdress()->make());
-    assertType('App\Address', $child->oneAdress()->create([]));
-    assertType('App\Address', $child->oneAdress()->getRelated());
-    assertType('App\ChildUser', $child->oneAdress()->getParent());
-    assertType('Illuminate\Database\Eloquent\Relations\HasOne<App\Address, App\User>', $user->oneAdress());
-    assertType('Illuminate\Database\Eloquent\Relations\HasOne<App\Address, App\User>', $user->oneAdress()->where('zip'));
-    assertType('Illuminate\Database\Eloquent\Relations\HasOne<App\Address, App\User>', $user->oneAdress()->orderBy('zip'));
+    assertType('Illuminate\Database\Eloquent\Relations\HasOne<App\Address, App\ChildUser>', $child->oneAddress());
+    assertType('App\Address', $child->oneAddress()->make());
+    assertType('App\Address', $child->oneAddress()->create([]));
+    assertType('App\Address', $child->oneAddress()->getRelated());
+    assertType('App\ChildUser', $child->oneAddress()->getParent());
+    assertType('Illuminate\Database\Eloquent\Relations\HasOne<App\Address, App\User>', $user->oneAddress());
+    assertType('Illuminate\Database\Eloquent\Relations\HasOne<App\Address, App\User>', $user->oneAddress()->where('zip'));
+    assertType('Illuminate\Database\Eloquent\Relations\HasOne<App\Address, App\User>', $user->oneAddress()->orderBy('zip'));
 
     assertType('Illuminate\Database\Eloquent\Relations\HasMany<App\Account, App\User>', $user->accountsCamel());
     assertType('App\AccountCollection<int, App\Account>', $user->accountsCamel()->getResults());
