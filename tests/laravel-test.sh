@@ -7,14 +7,15 @@ LARAVEL_VERSION_CONSTRAINT="${1:-^11.0}"
 echo "Install Laravel ${LARAVEL_VERSION_CONSTRAINT}"
 composer create-project --quiet --prefer-dist "laravel/laravel:${LARAVEL_VERSION_CONSTRAINT}" ../laravel
 cd ../laravel/
+SAMPLE_APP_DIR="$(pwd)"
+composer show --direct
 
 echo "Add Larastan from source"
 composer config minimum-stability dev
 composer config repositories.0 '{ "type": "path", "url": "../larastan", "options": { "symlink": false } }'
 
 # No version information with "type":"path"
-composer require --dev "larastan/larastan:*"
-composer du -o
+composer require --dev --optimize-autoloader "larastan/larastan:*"
 
 cat >phpstan.neon <<"EOF"
 includes:
@@ -27,7 +28,7 @@ EOF
 
 echo "Test Laravel"
 vendor/bin/phpstan analyse
-cd -
 
-echo "Test Laravel from other working directories"
-../laravel/vendor/bin/phpstan analyse --configuration=../laravel/phpstan.neon ../laravel/app
+echo "Test Laravel from another working directory"
+cd /tmp/
+${SAMPLE_APP_DIR}/vendor/bin/phpstan analyse --configuration=${SAMPLE_APP_DIR}/phpstan.neon
