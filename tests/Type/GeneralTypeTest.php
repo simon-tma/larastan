@@ -35,7 +35,6 @@ class GeneralTypeTest extends TypeInferenceTestCase
         yield from self::gatherAssertTypes(__DIR__ . '/data/custom-eloquent-collection.php');
         yield from self::gatherAssertTypes(__DIR__ . '/data/database-transaction.php');
         yield from self::gatherAssertTypes(__DIR__ . '/data/date-extension.php');
-        yield from self::gatherAssertTypes(__DIR__ . '/data/eloquent-builder.php');
         yield from self::gatherAssertTypes(__DIR__ . '/data/environment-helper.php');
         yield from self::gatherAssertTypes(__DIR__ . '/data/facades.php');
         yield from self::gatherAssertTypes(__DIR__ . '/data/form-request.php');
@@ -48,7 +47,6 @@ class GeneralTypeTest extends TypeInferenceTestCase
         yield from self::gatherAssertTypes(__DIR__ . '/data/model-properties.php');
         yield from self::gatherAssertTypes(__DIR__ . '/data/model-relations.php');
         yield from self::gatherAssertTypes(__DIR__ . '/data/model-scopes.php');
-        yield from self::gatherAssertTypes(__DIR__ . '/data/model.php');
         yield from self::gatherAssertTypes(__DIR__ . '/data/optional-helper.php');
         yield from self::gatherAssertTypes(__DIR__ . '/data/paginator-extension.php');
         yield from self::gatherAssertTypes(__DIR__ . '/data/query-builder.php');
@@ -68,6 +66,14 @@ class GeneralTypeTest extends TypeInferenceTestCase
 
         if (version_compare(LARAVEL_VERSION, '11.28.0', '>=')) {
             yield from self::gatherAssertTypes(__DIR__ . '/data/model-collections-l11-28.php');
+        }
+
+        if (version_compare(LARAVEL_VERSION, '11.42.0', '<')) {
+            yield from self::gatherAssertTypes(__DIR__ . '/data/model.php');
+            yield from self::gatherAssertTypes(__DIR__ . '/data/eloquent-builder.php');
+        } else {
+            yield from self::gatherAssertTypes(__DIR__ . '/data/model-l11-42.php');
+            yield from self::gatherAssertTypes(__DIR__ . '/data/eloquent-builder-l11-42.php');
         }
 
         //##############################################################################################################
