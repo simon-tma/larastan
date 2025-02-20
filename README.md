@@ -24,14 +24,14 @@ Larastan was created by [Can Vural](https://github.com/canvural) and [Nuno Madur
 > While by definition, "static analysis" doesn't load any of your application's code. Larastan boots your application's container, so it can resolve types that are only possible to compute at runtime. That's why we use the term "code analysis" instead of "static analysis".
 
 ### Supported Laravel versions
-| Laravel Version  | Larastan Version |
-|------------------|------------------|
-| < 9              | 1.x              |
-| \> 9.0 && <11.15 | 2.x              |
-| 11.15+           | 3.0+             |
+| Laravel Version    | Larastan Version |
+|--------------------|------------------|
+| < 9                | 1.x              |
+| \> 9.0 && >= 11.16 | 2.x              |
+| 11.16+             | 3.0+             |
 
 ## Sponsors
-<a href="https://blackfire.io/docs/introduction?utm_source=phpstan&utm_medium=github_readme&utm_campaign=logo"><img src="assets/blackfire-logo.png" alt="Blackfire.io" width="254" height="64"></a>
+<a href="https://blackfire.io/docs/introduction?utm_source=larastan&utm_medium=github_readme&utm_campaign=logo"><img src="assets/blackfire-logo.png" alt="Blackfire.io" width="254" height="64"></a>
 
 ## ✨ Getting Started In 3 Steps
 
