@@ -6,9 +6,13 @@ namespace Larastan\Larastan\Methods;
 
 use Closure;
 use Illuminate\Auth\RequestGuard;
+use Illuminate\Auth\SessionGuard;
+use Illuminate\Cache\CacheManager;
+use Illuminate\Cache\Repository as CacheRepository;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\Str;
 use Illuminate\Support\Traits\Macroable;
@@ -86,7 +90,10 @@ class MacroMethodsClassReflectionExtension implements MethodsClassReflectionExte
             $facadeClass = $classReflection->getName();
 
             if ($facadeClass === Auth::class) {
-                $classNames         = ['Illuminate\Auth\SessionGuard', RequestGuard::class];
+                $classNames         = [SessionGuard::class, RequestGuard::class];
+                $macroTraitProperty = 'macros';
+            } elseif ($facadeClass === Cache::class) {
+                $classNames         = [CacheManager::class, CacheRepository::class];
                 $macroTraitProperty = 'macros';
             } else {
                 $concrete = null;
@@ -116,7 +123,6 @@ class MacroMethodsClassReflectionExtension implements MethodsClassReflectionExte
                 }
 
                 $refProperty = $macroClassReflection->getNativeReflection()->getProperty($macroTraitProperty);
-                $refProperty->setAccessible(true);
 
                 $found = array_key_exists($methodName, $refProperty->getValue());
 
@@ -160,7 +166,7 @@ class MacroMethodsClassReflectionExtension implements MethodsClassReflectionExte
                     $methodReflection = new Macro(
                         $macroClassReflection,
                         $methodName,
-                        $this->closureTypeFactory->fromClosureObject($refProperty->getValue()[$methodName]),
+                        $this->closureTypeFactory->fromClosureObject($macroDefinition),
                     );
 
                     $methodReflection->setIsStatic(true);
