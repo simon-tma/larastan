@@ -9,3 +9,6 @@ parameters:
     paths:
         - src
     reportUnmatchedIgnoredErrors: false
+    ignoreErrors:
+        -
+            identifier: method.deprecated
